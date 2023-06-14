@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from functools import partial
-import регистрация_склада as register_new_stock
+import register_warehouse as register_new_stock
 import search_product as seach_product
 import give as acceptance_goods
 import push_product as push_product_in_stock
@@ -21,7 +21,7 @@ class Ui_MainWindow(object):
 
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(926, 603)
-        MainWindow.setStyleSheet("background-image: url(\"C:/Users/admin/Desktop/OJ91CN0.jpg\");")
+        MainWindow.setStyleSheet("background-image: url(\"OJ91CN0.jpg\");")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)

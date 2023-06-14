@@ -19,7 +19,7 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(775, 460)
-        Dialog.setStyleSheet("background-image: url(\'C:/Users/admin/Desktop/OJ91CN0.jpg\');    ")
+        Dialog.setStyleSheet("background-image: url(\"OJ91CN0.jpg\");")
         self.comboBox = QtWidgets.QComboBox(Dialog)
         self.comboBox.setGeometry(QtCore.QRect(10, 50, 191, 22))
         self.comboBox.setObjectName("comboBox")

@@ -15,7 +15,7 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(605, 395)
-        Dialog.setStyleSheet("background-image: url(\'C:/Users/admin/Desktop/OJ91CN0.jpg\');")
+        Dialog.setStyleSheet("background-image: url(\"OJ91CN0.jpg\");")
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(230, 10, 191, 21))
         self.label.setStyleSheet("color: #fff;\n"
