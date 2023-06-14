@@ -52,7 +52,7 @@ class Ui_Dialog(object):
         self.tableWidget = QtWidgets.QTableWidget(Dialog)
         self.tableWidget.setGeometry(QtCore.QRect(10, 80, 521, 261))
         self.tableWidget.setStyleSheet("\n"
-"background:rgb(253, 255, 233)")
+"background: ")
         self.tableWidget.setTabKeyNavigation(True)
         self.tableWidget.setObjectName("tableWidget")
         self.tableWidget.setColumnCount(4)

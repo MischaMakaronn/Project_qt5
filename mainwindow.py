@@ -5,6 +5,8 @@ import search_product as seach_product
 import give as acceptance_goods
 import push_product as push_product_in_stock
 import write_off as write_off_product
+import buy_product_user as buy_product
+import goods_movement
 # Form implementation generated from reading ui file 'main.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
@@ -106,6 +108,8 @@ class Ui_MainWindow(object):
         self.pushButton_6.clicked.connect(partial(self.acceptance_goods))
         self.pushButton_4.clicked.connect(partial(self.push_product_in_stock))
         self.pushButton_7.clicked.connect(partial(self.write_off_product))
+        self.pushButton_5.clicked.connect(partial(self.buy_product_user))
+        self.pushButton_8.clicked.connect(partial(self.goods_movement))
 
 
 
@@ -126,6 +130,20 @@ class Ui_MainWindow(object):
     def register_new_stock(self):
         Dialog = QtWidgets.QDialog()
         ui2 = register_new_stock.Ui_Dialog()
+        ui2.setupUi(Dialog)
+        Dialog.show()
+        Dialog.exec_()
+
+    def goods_movement(self):
+        Dialog = QtWidgets.QDialog()
+        ui2 = goods_movement.Ui_Dialog()
+        ui2.setupUi(Dialog)
+        Dialog.show()
+        Dialog.exec_()
+
+    def buy_product_user(self):
+        Dialog = QtWidgets.QDialog()
+        ui2 = buy_product.Ui_Dialog()
         ui2.setupUi(Dialog)
         Dialog.show()
         Dialog.exec_()
