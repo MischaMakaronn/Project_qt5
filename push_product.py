@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from functools import partial
+import sqlite3
+
 
 # Form implementation generated from reading ui file 'push_product.ui'
 #
@@ -10,9 +12,13 @@ from functools import partial
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import add_category
+from PyQt5.QtWidgets import QTableWidgetItem
 
+import add_category
+conn = sqlite3.connect('warehouse.db')
 class Ui_Dialog(object):
+
+
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(607, 395)
@@ -118,6 +124,11 @@ class Ui_Dialog(object):
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
+        with conn:
+            for i in [i for i in conn.execute('SELECT name FROM Category')]:
+                self.comboBox.addItem(i[0])
+
+
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
@@ -138,6 +149,48 @@ class Ui_Dialog(object):
         item.setText(_translate("Dialog", "Картинка"))
         self.pushButton_4.clicked.connect(partial(self.add_category))
         self.pushButton_5.clicked.connect(Dialog.close)
+        self.pushButton_3.clicked.connect(partial(self.add_product_in_db))
+
+
+    def add_product_in_db(self):
+        name_product = []
+        photo_list = []
+        count_list = []
+        for i in range(self.tableWidget.rowCount()):
+            name = f'{self.tableWidget.model().index(i, 0).data()}'
+            if name == 'None':
+                break
+            else:
+                name_product.append(name)
+        for i in range(self.tableWidget.rowCount()):
+            photo = f'{self.tableWidget.model().index(i, 3).data()}'
+            if photo == 'None':
+                break
+            else:
+                photo_list.append(photo)
+        for i in range(self.tableWidget.rowCount()):
+            count = f'{self.tableWidget.model().index(i, 1).data()}'
+            if count == 'None':
+                break
+            else:
+                count_list.append(count)
+            print(count_list)
+        values = zip(count_list, photo_list)
+        result_info_in_db_goods = dict(zip(name_product, values))
+        print(result_info_in_db_goods)
+        goods_table = "INSERT OR IGNORE INTO Goods(name, count, photo, category_id) values(?,?,?,?)"
+        category_name = self.comboBox.currentText()
+        with conn:
+            id_category = [i[0] for i in conn.execute(f'SELECT id FROM Category WHERE Category.name = "{category_name}"')]
+            print(id_category)
+        with conn:
+            for key, value in result_info_in_db_goods.items():
+                conn.execute(goods_table, [f'{key}', int(f'{value[0]}'), f'{value[1]}', int(f'{id_category[0]}')])
+        conn.commit()
+        self.tableWidget.clearContents()
+
+            # print(connect.execute("INSERT INFO Goods (name) values (?)", ('Вишня')))
+
 
     def add_category(self):
         Dialog = QtWidgets.QDialog()
