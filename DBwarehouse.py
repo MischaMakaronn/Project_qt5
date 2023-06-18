@@ -24,51 +24,67 @@ with con:
 
     con.execute("""
         CREATE TABLE IF NOT EXISTS Category (
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            description TEXT
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        description TEXT
         );
     """)
 
     con.execute("""
         CREATE TABLE IF NOT EXISTS Goods (
-            id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-            code TEXT,
-            name TEXT,
-            description TEXT,
-            photo TEXT,
-            price FLOAT,
-            weight FLOAT,
-            unit TEXT,
-            count INTEGER,
-            expiration_date DATETIME,
-            sold  INTEGER,
-            write_off INTEGER,
-            category_id INTEGER,
-            stock_id INTEGER,
-            FOREIGN KEY (category_id) REFERENCES Category (id),
-            FOREIGN KEY (stock_id) REFERENCES Stock (id)
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        code TEXT,
+        name TEXT,
+        description TEXT,
+        photo TEXT,
+        price FLOAT,
+        weight FLOAT,
+        unit TEXT,
+        count INTEGER,
+        expiration_date DATETIME,
+        sold  INTEGER,
+        write_off INTEGER,
+        category_id INTEGER,
+        stock_id INTEGER,
+        FOREIGN KEY (category_id) REFERENCES Category (id),
+        FOREIGN KEY (stock_id) REFERENCES Stock (id)
         );
     """)
 
     con.execute("""
-            CREATE TABLE IF NOT EXISTS Orders (
-                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                client_id INTEGER,
-                good_id TEXT,
-                total_price FLOAT,
-                date DATETIME,
-                FOREIGN KEY (client_id) REFERENCES Clients (id),
-                FOREIGN KEY (good_id) REFERENCES Goods (id)
-            );
-        """)
+        CREATE TABLE IF NOT EXISTS Orders (
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        client_id INTEGER,
+        good_id TEXT,
+        total_price FLOAT,
+        date DATETIME,
+        FOREIGN KEY (client_id) REFERENCES Clients (id),
+        FOREIGN KEY (good_id) REFERENCES Goods (id)
+        );
+    """)
 
     con.execute("""
-            CREATE TABLE IF NOT EXISTS Stock (
-                id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-                name TEXT,
-                address TEXT,
-                geo_text TEXT,
-                geo_coordinates TEXT
-            )
-        """)
+        CREATE TABLE IF NOT EXISTS Stock (
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        address TEXT,
+        geo_text TEXT,
+        geo_coordinates TEXT
+        )
+    """)
+
+    con.execute("""
+        CREATE TABLE IF NOT EXISTS WriteOff (
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        category_id INTEGER,
+        stock_id INTEGER,
+        good_id INTEGER,
+        count INTEGER,
+        reason TEXT,
+        document TEXT,
+        date_off DATETIME,
+        FOREIGN KEY (category_id) REFERENCES Category (id),
+        FOREIGN KEY (stock_id) REFERENCES Stock (id),
+        FOREIGN KEY (good_id) REFERENCES Goods (id)
+        )
+    """)
