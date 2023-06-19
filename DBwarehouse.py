@@ -88,3 +88,33 @@ with con:
         FOREIGN KEY (good_id) REFERENCES Goods (id)
         )
     """)
+
+    con.execute("""
+        CREATE TABLE IF NOT EXISTS Supply (
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        good_id INTEGER,
+        stock_id INTEGER,
+        count_in INTEGER,
+        count_current INTEGER,
+        supply_date DATETIME,
+        expiration_date DATETIME,
+        FOREIGN KEY (good_id) REFERENCES Goods (id),
+        FOREIGN KEY (stock_id) REFERENCES Stock (id)
+        )
+    """)
+
+con.execute("""
+        CREATE TABLE IF NOT EXISTS MovementOfGoods (
+        id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        supply_id INTEGER,
+        stock_in_id INTEGER,
+        stock_out_id INTEGER,
+        count_in INTEGER,
+        count_current INTEGER,
+        movement_date DATETIME,
+        movement_status TEXT,
+        FOREIGN KEY (supply_id) REFERENCES Supply (id),
+        FOREIGN KEY (stock_in_id) REFERENCES Stock (id),
+        FOREIGN KEY (stock_out_id) REFERENCES Stock (id)
+        )
+    """)
