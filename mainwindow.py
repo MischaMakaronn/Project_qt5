@@ -7,6 +7,7 @@ import push_product as push_product_in_stock
 import write_off as write_off_product
 import buy_product_user as buy_product
 import goods_movement
+import goodssuply as goods_supply
 # Form implementation generated from reading ui file 'main.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.9
@@ -20,7 +21,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
-
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(926, 603)
         MainWindow.setStyleSheet("background-image: url(\"OJ91CN0.jpg\");")
@@ -29,57 +29,64 @@ class Ui_MainWindow(object):
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setGeometry(QtCore.QRect(10, 460, 201, 51))
         self.pushButton_2.setStyleSheet("font: 12pt \"OCR A Extended\";\n"
-"border-radius: 20px;\n"
-"border: 2px solid #42abc3;\n"
-"color: #42abc3;\n"
-"background:#cddff3")
+                                        "border-radius: 20px;\n"
+                                        "border: 2px solid #42abc3;\n"
+                                        "color: #42abc3;\n"
+                                        "background:#cddff3")
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setGeometry(QtCore.QRect(10, 520, 201, 51))
         self.pushButton_3.setStyleSheet("font: 12pt \"OCR A Extended\";\n"
-"border-radius: 20px;\n"
-"border: 2px solid #42abc3;\n"
-"color: #42abc3;\n"
-"background:#cddff3")
+                                        "border-radius: 20px;\n"
+                                        "border: 2px solid #42abc3;\n"
+                                        "color: #42abc3;\n"
+                                        "background:#cddff3")
         self.pushButton_3.setObjectName("pushButton_3")
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_4.setGeometry(QtCore.QRect(10, 20, 231, 51))
         self.pushButton_4.setStyleSheet("font: 12pt \"OCR A Extended\";\n"
-"border-radius: 20px;\n"
-"border: 2px solid #42abc3;\n"
-"color: #42abc3;\n"
-"background:#cddff3")
+                                        "border-radius: 20px;\n"
+                                        "border: 2px solid #42abc3;\n"
+                                        "color: #42abc3;\n"
+                                        "background:#cddff3")
         self.pushButton_4.setObjectName("pushButton_4")
         self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_5.setGeometry(QtCore.QRect(250, 20, 201, 51))
         self.pushButton_5.setStyleSheet("font: 12pt \"OCR A Extended\";\n"
-"border-radius: 20px;\n"
-"border: 2px solid #42abc3;\n"
-"color: #42abc3;\n"
-"background:#cddff3")
+                                        "border-radius: 20px;\n"
+                                        "border: 2px solid #42abc3;\n"
+                                        "color: #42abc3;\n"
+                                        "background:#cddff3")
         self.pushButton_5.setObjectName("pushButton_5")
         self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_6.setGeometry(QtCore.QRect(460, 20, 261, 51))
+        self.pushButton_6.setGeometry(QtCore.QRect(650, 480, 281, 101))
         self.pushButton_6.setStyleSheet("font: 12pt \"OCR A Extended\";\n"
-"border-radius: 20px;\n"
-"border: 2px solid #42abc3;\n"
-"color: #42abc3;\n"
-"background:#cddff3")
+                                        "background:rgb(255, 67, 67);\n"
+                                        "border: 2px solid #ddd;\n"
+                                        "color: #fff;")
         self.pushButton_6.setObjectName("pushButton_6")
+        self.pushButton_9 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_9.setGeometry(QtCore.QRect(460, 20, 261, 51))
+        self.pushButton_9.setStyleSheet("font: 12pt \"OCR A Extended\";\n"
+                                        "border-radius: 20px;\n"
+                                        "border: 2px solid #42abc3;\n"
+                                        "color: #42abc3;\n"
+                                        "background:#cddff3")
+        self.pushButton_9.setObjectName("pushButton_6")
         self.pushButton_7 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_7.setGeometry(QtCore.QRect(770, 20, 141, 51))
         self.pushButton_7.setStyleSheet("font: 12pt \"OCR A Extended\";\n"
-"border-radius: 20px;\n"
-"border: 2px solid #42abc3;\n"
-"color: #42abc3;\n"
-"background:#cddff3")
+                                        "border-radius: 20px;\n"
+                                        "border: 2px solid #42abc3;\n"
+                                        "color: #42abc3;\n"
+                                        "background:#cddff3")
         self.pushButton_7.setObjectName("pushButton_7")
         self.pushButton_8 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_8.setGeometry(QtCore.QRect(650, 480, 281, 101))
+        self.pushButton_8.setGeometry(QtCore.QRect(650, 370, 281, 101))
         self.pushButton_8.setStyleSheet("font: 12pt \"OCR A Extended\";\n"
-"background:rgb(255, 67, 67);\n"
-"border: 2px solid #ddd;\n"
-"color: #fff;")
+                                        "background:rgb(255, 67, 67);\n"
+                                        "border: 2px solid #ddd;\n"
+                                        "color: #fff;")
         self.pushButton_8.setObjectName("pushButton_8")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -102,7 +109,8 @@ class Ui_MainWindow(object):
         self.pushButton_5.setText(_translate("MainWindow", "Оформить покупку"))
         self.pushButton_6.setText(_translate("MainWindow", "Принятие перемещения"))
         self.pushButton_7.setText(_translate("MainWindow", "Списать"))
-        self.pushButton_8.setText(_translate("MainWindow", "Переместить\n на другой склад"))
+        self.pushButton_8.setText(_translate("MainWindow", "Переместить товар\n на другой склад"))
+        self.pushButton_9.setText(_translate("MainWindow", "Оформить поставку"))
         self.pushButton_2.clicked.connect(partial(self.register_new_stock))
         self.pushButton_3.clicked.connect(partial(self.search_product))
         self.pushButton_6.clicked.connect(partial(self.acceptance_goods))
@@ -110,7 +118,7 @@ class Ui_MainWindow(object):
         self.pushButton_7.clicked.connect(partial(self.write_off_product))
         self.pushButton_5.clicked.connect(partial(self.buy_product_user))
         self.pushButton_8.clicked.connect(partial(self.goods_movement))
-
+        self.pushButton_9.clicked.connect(partial(self.goods_supply))
 
 
     def write_off_product(self):
@@ -148,7 +156,6 @@ class Ui_MainWindow(object):
         Dialog.show()
         Dialog.exec_()
 
-
     def search_product(self):
         Dialog = QtWidgets.QDialog()
         ui2 = seach_product.Ui_Dialog()
@@ -157,14 +164,24 @@ class Ui_MainWindow(object):
         Dialog.exec_()
 
     def push_product_in_stock(self):
-
         Dialog = QtWidgets.QDialog()
         ui2 = push_product_in_stock.Ui_Dialog()
         ui2.setupUi(Dialog)
         Dialog.show()
         Dialog.exec_()
+
+
+    def goods_supply(self):
+        Dialog = QtWidgets.QDialog()
+        ui2 = goods_supply.Ui_Dialog()
+        ui2.setupUi(Dialog)
+        Dialog.show()
+        Dialog.exec_()
+
+
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()

@@ -13,10 +13,9 @@ import datetime as DT
 import openpyxl
 import os
 import docxtpl
+
+
 # from docxtpl import Table
-
-
-
 
 
 class Ui_Dialog(object):
@@ -97,28 +96,28 @@ class Ui_Dialog(object):
         self.cancel_button_pushButton.setEnabled(False)
         self.cancel_button_pushButton.setGeometry(QtCore.QRect(130, 580, 101, 31))
         self.cancel_button_pushButton.setStyleSheet("font: bold 9pt \"OCR A Extended\";\n"
-                                        "border-radius: 12px;\n"
-                                        "border: 2px solid #42abc3;\n"
-                                        "color: #42abc3;\n"
-                                        "background:#cddff3")
+                                                    "border-radius: 12px;\n"
+                                                    "border: 2px solid #42abc3;\n"
+                                                    "color: #42abc3;\n"
+                                                    "background:#cddff3")
         self.cancel_button_pushButton.setObjectName("pushButton_5")
         self.accept_button_pushButton = QtWidgets.QPushButton(Dialog)
         self.accept_button_pushButton.setEnabled(False)
         self.accept_button_pushButton.setGeometry(QtCore.QRect(20, 580, 101, 31))
         self.accept_button_pushButton.setStyleSheet("font: bold 9pt \"OCR A Extended\";\n"
-                                        "border-radius: 12px;\n"
-                                        "border: 2px solid #42abc3;\n"
-                                        "color: #42abc3;\n"
-                                        "background:#cddff3")
+                                                    "border-radius: 12px;\n"
+                                                    "border: 2px solid #42abc3;\n"
+                                                    "color: #42abc3;\n"
+                                                    "background:#cddff3")
         self.accept_button_pushButton.setObjectName("pushButton_3")
         self.load_doc_pushButton = QtWidgets.QPushButton(Dialog)
         self.load_doc_pushButton.setEnabled(False)
         self.load_doc_pushButton.setGeometry(QtCore.QRect(650, 10, 120, 60))
         self.load_doc_pushButton.setStyleSheet("font: bold 11pt \"OCR A Extended\";\n"
-                                        "border-radius: 12px;\n"
-                                        "border: 2px solid #42abc3;\n"
-                                        "color: #42abc3;\n"
-                                        "background:#cddff3")
+                                               "border-radius: 12px;\n"
+                                               "border: 2px solid #42abc3;\n"
+                                               "color: #42abc3;\n"
+                                               "background:#cddff3")
 
         # self.pushButton_6.setStyleSheet("border: 2px solid #ddd; font: 63 9pt Yu Gothic UI Semibold; color: #8cbaff; border-radius: 20px; background: #fff;")
         self.load_doc_pushButton.setObjectName("pushButton_6")
@@ -173,7 +172,6 @@ class Ui_Dialog(object):
             # list_of_phones = [i[5] for i in list(info_staff)]
         for i in range(0, len(list(info_positions))):
             self.goods_combobox.addItem("")
-
 
         self.tableWidget = QtWidgets.QTableWidget(Dialog)
         self.tableWidget.setGeometry(QtCore.QRect(10, 80, 521, 261))
@@ -240,23 +238,23 @@ class Ui_Dialog(object):
         self.add_button_pushButton = QtWidgets.QPushButton(Dialog)
         self.add_button_pushButton.setGeometry(QtCore.QRect(650, 80, 61, 51))
         self.add_button_pushButton.setStyleSheet("border: 2px solid #ddd;\n"
-                                        "font: 75 26pt \"MS Shell Dlg 2\";\n"
-                                        "\n"
-                                        "color: rgb(196, 255, 0);\n"
-                                        "border-radius: 20px;\n"
-                                        "background: #fff;\n"
-                                        "")
+                                                 "font: 75 26pt \"MS Shell Dlg 2\";\n"
+                                                 "\n"
+                                                 "color: rgb(196, 255, 0);\n"
+                                                 "border-radius: 20px;\n"
+                                                 "background: #fff;\n"
+                                                 "")
         self.add_button_pushButton.setObjectName("pushButton_7")
 
         self.delete_button_pushButton = QtWidgets.QPushButton(Dialog)
         self.delete_button_pushButton.setGeometry(QtCore.QRect(710, 80, 61, 51))
         self.delete_button_pushButton.setStyleSheet("border: 2px solid #ddd;\n"
-                                        "font: 75 26pt \"MS Shell Dlg 2\";\n"
-                                        "\n"
-                                        "color: rgb(255, 64, 0);\n"
-                                        "border-radius: 20px;\n"
-                                        "background: #fff;\n"
-                                        "")
+                                                    "font: 75 26pt \"MS Shell Dlg 2\";\n"
+                                                    "\n"
+                                                    "color: rgb(255, 64, 0);\n"
+                                                    "border-radius: 20px;\n"
+                                                    "background: #fff;\n"
+                                                    "")
         self.delete_button_pushButton.setObjectName("pushButton_8")
 
         self.goods_count_spinbox = QtWidgets.QSpinBox(Dialog)
@@ -344,8 +342,6 @@ class Ui_Dialog(object):
         self.cancel_button_pushButton.clicked.connect(Dialog.close)
         self.load_doc_pushButton.clicked.connect(partial(self.load_write_off_act))
 
-
-
     def update_goods_combobox(self, index):
         _translate = QtCore.QCoreApplication.translate
         conn = sqlite3.connect('warehouse.db')
@@ -360,14 +356,14 @@ class Ui_Dialog(object):
         #     self.goods_combobox.setItemText(num, _translate("Dialog", f"{list_of_goods[num]}"))
         self.goods_combobox.addItems(list_of_goods)
         # self.tableWidget.selectRow(raw)
-        self.tableWidget.setItem(self.tableWidget.currentRow(), 1, QTableWidgetItem(self.category_combobox.currentText()))
+        self.tableWidget.setItem(self.tableWidget.currentRow(), 1,
+                                 QTableWidgetItem(self.category_combobox.currentText()))
         self.tableWidget.setItem(self.tableWidget.currentRow(), 2, QTableWidgetItem(self.goods_combobox.currentText()))
         # self.tableWidget.setItem(self.tableWidget.currentRow(), 0, QTableWidgetItem(self.warehouse_combobox.currentText()))
         # self.tableWidget.setItem(self.tableWidget.currentRow(), 1, QTableWidgetItem(self.category_combobox.currentText()))
         # self.tableWidget.setItem(self.tableWidget.currentRow(), 3, QTableWidgetItem("0"))
         self.cancel_button_pushButton.setEnabled(True)
         self.accept_button_pushButton.setEnabled(True)
-
 
     def update_good_from_combobox(self, index):
         _translate = QtCore.QCoreApplication.translate
@@ -376,14 +372,13 @@ class Ui_Dialog(object):
         self.cancel_button_pushButton.setEnabled(True)
         self.accept_button_pushButton.setEnabled(True)
 
-
     def update_warehouse_from_combobox(self, index):
         _translate = QtCore.QCoreApplication.translate
         # self.tableWidget.selectRow(raw)
-        self.tableWidget.setItem(self.tableWidget.currentRow(), 0, QTableWidgetItem(self.warehouse_combobox.currentText()))
+        self.tableWidget.setItem(self.tableWidget.currentRow(), 0,
+                                 QTableWidgetItem(self.warehouse_combobox.currentText()))
         self.cancel_button_pushButton.setEnabled(True)
         self.accept_button_pushButton.setEnabled(True)
-
 
     def update_count_from_spinbox(self, value):
         _translate = QtCore.QCoreApplication.translate
@@ -392,13 +387,11 @@ class Ui_Dialog(object):
         self.cancel_button_pushButton.setEnabled(True)
         self.accept_button_pushButton.setEnabled(True)
 
-
     def add_raw(self):  # для добавления нового ряда в таблицу
         self.tableWidget.insertRow(self.tableWidget.rowCount())  # Добавляем новый ряд в таблицу
         self.tableWidget.setCurrentCell(self.tableWidget.rowCount() - 1, 0)  # Устанавливаем фокус на новый ряд
         self.cancel_button_pushButton.setEnabled(True)
         self.accept_button_pushButton.setEnabled(True)
-
 
     def delete_row(self, table_name):  # функция для удаления выбранной строки из таблицы
         row = self.tableWidget.currentRow()  # получаем индекс выбранной строки
@@ -406,12 +399,10 @@ class Ui_Dialog(object):
         # self.cancel_button.setEnabled(True)
         # self.accept_button.setEnabled(True)
 
-
     def cell_double_clicked(self):
         print("Активируеи кнопки Отменить и Применить при даблклике в ячейке")
         self.cancel_button_pushButton.setEnabled(True)
         self.accept_button_pushButton.setEnabled(True)
-
 
     def update_reason_from_lineedit(self, text):
         _translate = QtCore.QCoreApplication.translate
@@ -419,7 +410,6 @@ class Ui_Dialog(object):
         self.tableWidget.setItem(self.tableWidget.currentRow(), 4, QTableWidgetItem(text))
         self.cancel_button_pushButton.setEnabled(True)
         self.accept_button_pushButton.setEnabled(True)
-
 
     def save_write_off(self):  # функция для сохранения изменений в базе данных
         try:
@@ -462,8 +452,9 @@ class Ui_Dialog(object):
                 fin_count = good_count - count
                 print(good_count, count, fin_count)
                 with conn:
-                    conn.execute("INSERT OR IGNORE INTO WriteOff (category_id, stock_id, good_id, count, reason, document, date_off) values(?, ?, ?, ?, ?, ?, ?)",
-                                 (category_id, stock_id, good_id, count, reason, document, date_off))
+                    conn.execute(
+                        "INSERT OR IGNORE INTO WriteOff (category_id, stock_id, good_id, count, reason, document, date_off) values(?, ?, ?, ?, ?, ?, ?)",
+                        (category_id, stock_id, good_id, count, reason, document, date_off))
                     conn.execute(f"UPDATE Goods SET count = ? WHERE id = ?", (fin_count, good_id))
                 conn.commit()
 
@@ -495,13 +486,11 @@ class Ui_Dialog(object):
         self.accept_button_pushButton.setEnabled(False)
         self.load_doc_pushButton.setEnabled(True)
 
-
     def load_write_off_act(self):
         print(document_list)
         for doc in document_list:
             doc_to_open = "C://Users//voyag//PycharmProjects//Project_qt5//wroffdocs//" + doc
             os.startfile(doc_to_open)
-
 
     # def resizeEvent(self, event):
     #     # Переопределяем метод обработки события изменения размера виджета
@@ -515,6 +504,7 @@ class Ui_Dialog(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     Dialog = QtWidgets.QDialog()
     ui = Ui_Dialog()
