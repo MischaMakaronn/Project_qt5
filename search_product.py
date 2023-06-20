@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import time
 from functools import partial
+from fuzzywuzzy import fuzz
 import PyQt5.QtCore
 from PyQt5.QtWidgets import QWidget
 from PyQt5.QtCore import QTimer
@@ -27,6 +28,9 @@ class Ui_Dialog(object):
         self.comboBox = QtWidgets.QComboBox(Dialog)
         self.comboBox.setGeometry(QtCore.QRect(10, 50, 191, 22))
         self.comboBox.setObjectName("comboBox")
+
+        self.comboBox1 = QtWidgets.QComboBox(Dialog)
+
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(30, 0, 171, 41))
         self.label.setStyleSheet("color: #fff;\n"
@@ -83,6 +87,15 @@ class Ui_Dialog(object):
                                         "font: 63 9pt \"Yu Gothic UI Semibold\";\n"
                                         "background: #8ccfff;")
         self.pushButton_5.setObjectName("pushButton_5")
+
+        self.pushButton_6 = QtWidgets.QPushButton(Dialog)
+        self.pushButton_6.setGeometry(QtCore.QRect(999, 999, 999, 999))
+        self.pushButton_6.setStyleSheet("border-radius: 20px;\n"
+                                        "border: 2px solid #fff;\n"
+                                        "color: #fff;\n"
+                                        "font: 63 9pt \"Yu Gothic UI Semibold\";\n"
+                                        "background:rgba(0, 0, 0, 0);")
+
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -107,16 +120,55 @@ class Ui_Dialog(object):
         self.pushButton_2.setText(_translate("Dialog", "Применить"))
         self.pushButton_4.setText(_translate("Dialog", "Главная"))
         self.pushButton_5.setText(_translate("Dialog", "Найти"))
-        self.pushButton_5.clicked.connect(self.searh_in_combobox)
+        self.pushButton_5.clicked.connect(self.search_in_combobox)
         self.pushButton_4.clicked.connect(Dialog.close)
         self.pushButton_2.clicked.connect(partial(self.information_about_good))
+        self.pushButton_6.clicked.connect(partial(self.search_goods_info))
 
     def cursor_def(self):
         print('aaa')
 
-    def searh_in_combobox(self):
+    def search_in_combobox(self):
+        self.comboBox1.clear()
         name_good = self.textEdit.toPlainText()
-        index = self.comboBox.findText(name_good)
+        name = ''
+        dict_res = {}
+        with conn:
+            list_name_good = [i[0] for i in conn.execute('SELECT name FROM Goods')]
+            print(list_name_good)
+            for i in list_name_good:
+                result = fuzz.ratio(i, name_good)
+                dict_res[i] = result
+            names_combobox_goods = []
+            x = 0
+            for k, v in dict_res.items():
+                if int(v) >= x and int(v)!=0:
+                    x = v
+                    names_combobox_goods.append(k)
+                else:
+                    continue
+            print(names_combobox_goods)
+            if len(names_combobox_goods) != 0:
+                self.comboBox1.setGeometry(QtCore.QRect(280, 250, 191, 22))
+                self.comboBox1.setObjectName("comboBox")
+                self.comboBox1.addItems(names_combobox_goods)
+                names_combobox_goods.clear()
+                self.pushButton_2.close()
+
+                self.pushButton_6.setGeometry(QtCore.QRect(450, 300, 111, 41))
+                self.pushButton_6.setStyleSheet("border-radius: 20px;\n"
+                                                "border: 2px solid #fff;\n"
+                                                "color: #fff;\n"
+                                                "font: 63 9pt \"Yu Gothic UI Semibold\";\n"
+                                                "background: #8ccfff;")
+                self.pushButton_6.setText('Применить')
+                self.pushButton_6.setObjectName("pushButton_6")
+                self.pushButton_4.setGeometry(QtCore.QRect(200, 300, 111, 41))
+
+            else:
+                pass
+
+        index = self.comboBox.findText(name)
         try:
             if index >= 0:
                 self.comboBox.setCurrentIndex(index)
@@ -135,6 +187,15 @@ class Ui_Dialog(object):
             print('Ошибка: товара нет в БД')
             self.label1.setText('Товар не найдет!')
             QTimer.singleShot(2500, lambda: self.label1.setText(''))
+
+
+    def search_goods_info(self):
+        information_about_goods = self.comboBox1.currentText()
+        Dialog = QtWidgets.QDialog()
+        ui2 = information_about_good.Ui_Dialog()
+        ui2.setupUi(Dialog, information_about_goods)
+        Dialog.show()
+        Dialog.exec_()
 
 
     def information_about_good(self):

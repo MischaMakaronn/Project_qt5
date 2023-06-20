@@ -47,7 +47,7 @@ class Ui_Dialog(object):
                 self.label.setText(f'Описание: отсутствует :(')
 
             self.label = QtWidgets.QLabel(Dialog)
-            self.label.setGeometry(QtCore.QRect(50, 150, 281, 41))
+            self.label.setGeometry(QtCore.QRect(50, 150, 1000, 41))
             self.label.setStyleSheet("color: #fff;\n"
                                      "font: 75 12pt \"MS Shell Dlg 2\";")
             self.label.setObjectName("label")
