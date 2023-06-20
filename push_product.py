@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import datetime
+
 from functools import partial
 import sqlite3
 
@@ -21,10 +23,10 @@ class Ui_Dialog(object):
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(607, 395)
+        Dialog.resize(775, 420)
         Dialog.setStyleSheet("background-image: url(\"OJ91CN0.jpg\");")
         self.label = QtWidgets.QLabel(Dialog)
-        self.label.setGeometry(QtCore.QRect(210, 0, 191, 21))
+        self.label.setGeometry(QtCore.QRect(300, 0, 191, 21))
         self.label.setStyleSheet("color: #fff;\n"
 "font: 75 12pt \"MS Shell Dlg 2\";")
         self.label.setObjectName("label")
@@ -38,7 +40,7 @@ class Ui_Dialog(object):
 "")
         self.pushButton_5.setObjectName("pushButton_5")
         self.pushButton_4 = QtWidgets.QPushButton(Dialog)
-        self.pushButton_4.setGeometry(QtCore.QRect(20, 30, 161, 31))
+        self.pushButton_4.setGeometry(QtCore.QRect(85, 30, 161, 31))
         self.pushButton_4.setStyleSheet("border: 2px solid #ddd;\n"
 "font: 63 9pt \"Yu Gothic UI Semibold\";\n"
 "color: #8cbaff;\n"
@@ -56,7 +58,7 @@ class Ui_Dialog(object):
 "")
         self.pushButton_3.setObjectName("pushButton_3")
         self.pushButton_6 = QtWidgets.QPushButton(Dialog)
-        self.pushButton_6.setGeometry(QtCore.QRect(430, 30, 161, 31))
+        self.pushButton_6.setGeometry(QtCore.QRect(540, 30, 161, 31))
         self.pushButton_6.setStyleSheet("border: 2px solid #ddd;\n"
 "font: 63 9pt \"Yu Gothic UI Semibold\";\n"
 "color: #8cbaff;\n"
@@ -65,16 +67,16 @@ class Ui_Dialog(object):
 "")
         self.pushButton_6.setObjectName("pushButton_6")
         self.comboBox = QtWidgets.QComboBox(Dialog)
-        self.comboBox.setGeometry(QtCore.QRect(230, 30, 151, 31))
+        self.comboBox.setGeometry(QtCore.QRect(315, 30, 151, 31))
         self.comboBox.setStyleSheet("background:#8cbaff;")
         self.comboBox.setObjectName("comboBox")
         self.tableWidget = QtWidgets.QTableWidget(Dialog)
-        self.tableWidget.setGeometry(QtCore.QRect(20, 80, 551, 261))
+        self.tableWidget.setGeometry(QtCore.QRect(50, 80, 675, 261))
         self.tableWidget.setStyleSheet("\n"
 "background:rgb(253, 255, 233)")
         self.tableWidget.setTabKeyNavigation(True)
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(4)
+        self.tableWidget.setColumnCount(5)
         self.tableWidget.setRowCount(2)
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignCenter)
@@ -114,6 +116,12 @@ class Ui_Dialog(object):
         font.setItalic(True)
         item.setFont(font)
         self.tableWidget.setHorizontalHeaderItem(3, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setItalic(True)
+        item.setFont(font)
+        self.tableWidget.setHorizontalHeaderItem(4, item)
         self.tableWidget.horizontalHeader().setVisible(True)
         self.tableWidget.horizontalHeader().setCascadingSectionResizes(True)
         self.tableWidget.horizontalHeader().setHighlightSections(False)
@@ -127,6 +135,7 @@ class Ui_Dialog(object):
         with conn:
             for i in [i for i in conn.execute('SELECT name FROM Category')]:
                 self.comboBox.addItem(i[0])
+
 
 
     def retranslateUi(self, Dialog):
@@ -147,7 +156,11 @@ class Ui_Dialog(object):
         item.setText(_translate("Dialog", "Срок годности"))
         item = self.tableWidget.horizontalHeaderItem(3)
         item.setText(_translate("Dialog", "Картинка"))
+        item = self.tableWidget.horizontalHeaderItem(4)
+        item.setText(_translate("Dialog", "Описание"))
+        self.pushButton_4.clicked.connect(partial(Dialog.close))
         self.pushButton_4.clicked.connect(partial(self.add_category))
+
         self.pushButton_5.clicked.connect(Dialog.close)
         self.pushButton_3.clicked.connect(partial(self.add_product_in_db))
 
@@ -156,6 +169,8 @@ class Ui_Dialog(object):
         name_product = []
         photo_list = []
         count_list = []
+        best_before_date_list = []
+        description_list = []
         for i in range(self.tableWidget.rowCount()):
             name = f'{self.tableWidget.model().index(i, 0).data()}'
             if name == 'None':
@@ -174,22 +189,34 @@ class Ui_Dialog(object):
                 break
             else:
                 count_list.append(count)
-            print(count_list)
-        values = zip(count_list, photo_list)
+        for i in range(self.tableWidget.rowCount()):
+            expiration = f'{self.tableWidget.model().index(i, 2).data()}'
+            if expiration == 'None':
+                break
+            else:
+                best_before_date_list.append(expiration)
+        for i in range(self.tableWidget.rowCount()):
+            description = f'{self.tableWidget.model().index(i, 4).data()}'
+            if description == 'None':
+                break
+            else:
+                description_list.append(description)
+        print(description_list)
+        values = zip(count_list, photo_list, best_before_date_list, description_list)
         result_info_in_db_goods = dict(zip(name_product, values))
-        print(result_info_in_db_goods)
-        goods_table = "INSERT OR IGNORE INTO Goods(name, count, photo, category_id) values(?,?,?,?)"
+
+        goods_table = "INSERT OR IGNORE INTO Goods(name, count, photo, category_id,expiration_date, description) values(?,?,?,?,?,?)"
         category_name = self.comboBox.currentText()
         with conn:
             id_category = [i[0] for i in conn.execute(f'SELECT id FROM Category WHERE Category.name = "{category_name}"')]
-            print(id_category)
         with conn:
             for key, value in result_info_in_db_goods.items():
-                conn.execute(goods_table, [f'{key}', int(f'{value[0]}'), f'{value[1]}', int(f'{id_category[0]}')])
+                date1 = value[2]
+                conn.execute(goods_table, [f'{key}', int(f'{value[0]}'), f'{value[1]}', int(f'{id_category[0]}'), datetime.datetime.strptime(f'{date1}', '%d.%m.%Y'), f'{value[3]}'])
         conn.commit()
         self.tableWidget.clearContents()
 
-            # print(connect.execute("INSERT INFO Goods (name) values (?)", ('Вишня')))
+
 
 
     def add_category(self):
