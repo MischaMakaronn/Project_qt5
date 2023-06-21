@@ -83,7 +83,7 @@ class Ui_Dialog(object):
         self.label_2.setStyleSheet("color: #fff; font: bold 11pt MS Shell Dlg 2; background: transparent")
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(Dialog)
-        self.label_3.setGeometry(QtCore.QRect(365, 161, 118, 22))
+        self.label_3.setGeometry(QtCore.QRect(365, 131, 118, 22))
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setBold(True)
@@ -92,7 +92,7 @@ class Ui_Dialog(object):
         self.label_3.setStyleSheet("color: #fff; font: bold 11pt MS Shell Dlg 2; background: transparent")
         self.label_3.setObjectName("label_3")
         self.spinBox = QtWidgets.QSpinBox(Dialog)
-        self.spinBox.setGeometry(QtCore.QRect(365, 191, 125, 37))
+        self.spinBox.setGeometry(QtCore.QRect(365, 161, 125, 37))
         font = QtGui.QFont()
         font.setPointSize(10)
         font.setBold(True)
@@ -105,6 +105,22 @@ class Ui_Dialog(object):
                                    "color: #42abc3;\n"
                                    "background:#cddff3")
         self.spinBox.setObjectName("spinBox")
+
+        self.price_spinBox = QtWidgets.QDoubleSpinBox(Dialog)
+        self.price_spinBox.setGeometry(QtCore.QRect(365, 230, 125, 37))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.price_spinBox.setFont(font)
+        self.price_spinBox.setMaximum(1000000)
+        self.price_spinBox.setStyleSheet("font: bold 10pt \"OCR A Extended\";\n"
+                                         "border-radius: 12px;\n"
+                                         "border: 5px solid #42abc3;\n"
+                                         "color: #42abc3;\n"
+                                         "background:#cddff3")
+        self.price_spinBox.setObjectName("spinBox")
+
         self.label_4 = QtWidgets.QLabel(Dialog)
         self.label_4.setGeometry(QtCore.QRect(510, 161, 147, 22))
         font = QtGui.QFont()
@@ -122,10 +138,10 @@ class Ui_Dialog(object):
         font.setWeight(75)
         self.warehouse_combobox.setFont(font)
         self.warehouse_combobox.setStyleSheet("font: bold 10pt \"OCR A Extended\";\n"
-                                      "border-radius: 12px;\n"
-                                      "border: 5px solid #42abc3;\n"
-                                      "color: #42abc3;\n"
-                                      "background:#cddff3")
+                                              "border-radius: 12px;\n"
+                                              "border: 5px solid #42abc3;\n"
+                                              "color: #42abc3;\n"
+                                              "background:#cddff3")
         self.warehouse_combobox.setObjectName("comboBox_2")
         with conn:
             cursor = conn.cursor()
@@ -182,6 +198,16 @@ class Ui_Dialog(object):
         self.label_category.setStyleSheet("color: #fff; font: bold 11pt MS Shell Dlg 2; background: transparent")
         self.label_category.setObjectName("label_category")
 
+        self.price_label = QtWidgets.QLabel(Dialog)
+        self.price_label.setGeometry(QtCore.QRect(365, 200, 118, 22))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        font.setBold(True)
+        font.setWeight(75)
+        self.price_label.setFont(font)
+        self.price_label.setStyleSheet("color: #fff; font: bold 11pt MS Shell Dlg 2; background: transparent")
+        self.price_label.setObjectName("label_3")
+
         self.dateTimeEdit_3 = QtWidgets.QDateTimeEdit(Dialog)
         self.dateTimeEdit_3.setGeometry(QtCore.QRect(121, 310, 230, 37))
         current_date = QtCore.QDate.currentDate()
@@ -209,10 +235,10 @@ class Ui_Dialog(object):
         font.setWeight(75)
         self.accept_button_pushButton.setFont(font)
         self.accept_button_pushButton.setStyleSheet("font: bold 11pt \"OCR A Extended\";\n"
-                                      "border-radius: 12px;\n"
-                                      "border: 2px solid #42abc3;\n"
-                                      "color: #42abc3;\n"
-                                      "background:#cddff3")
+                                                    "border-radius: 12px;\n"
+                                                    "border: 2px solid #42abc3;\n"
+                                                    "color: #42abc3;\n"
+                                                    "background:#cddff3")
         self.accept_button_pushButton.setObjectName("pushButton")
         self.cancel_button_pushButton = QtWidgets.QPushButton(Dialog)
         self.cancel_button_pushButton.setEnabled(False)
@@ -224,10 +250,10 @@ class Ui_Dialog(object):
         font.setWeight(75)
         self.cancel_button_pushButton.setFont(font)
         self.cancel_button_pushButton.setStyleSheet("font: bold 10pt \"OCR A Extended\";\n"
-                                        "border-radius: 12px;\n"
-                                        "border: 2px solid #42abc3;\n"
-                                        "color: #42abc3;\n"
-                                        "background:#cddff3")
+                                                    "border-radius: 12px;\n"
+                                                    "border: 2px solid #42abc3;\n"
+                                                    "color: #42abc3;\n"
+                                                    "background:#cddff3")
         self.cancel_button_pushButton.setObjectName("pushButton_2")
         self.load_doc_pushButton = QtWidgets.QPushButton(Dialog)
         self.load_doc_pushButton.setEnabled(False)
@@ -238,10 +264,10 @@ class Ui_Dialog(object):
         font.setWeight(75)
         self.load_doc_pushButton.setFont(font)
         self.load_doc_pushButton.setStyleSheet("font: bold 11pt \"OCR A Extended\";\n"
-                                        "border-radius: 12px;\n"
-                                        "border: 2px solid #42abc3;\n"
-                                        "color: #42abc3;\n"
-                                        "background:#cddff3")
+                                               "border-radius: 12px;\n"
+                                               "border: 2px solid #42abc3;\n"
+                                               "color: #42abc3;\n"
+                                               "background:#cddff3")
         self.load_doc_pushButton.setObjectName("pushButton_3")
 
         self.retranslateUi(Dialog)
@@ -256,6 +282,7 @@ class Ui_Dialog(object):
         self.label_3.setText(_translate("Dialog", "Количество:"))
         self.label_4.setText(_translate("Dialog", "Выбрать склад:"))
         self.label_5.setText(_translate("Dialog", "Дата поставки:"))
+        self.price_label.setText(_translate("Dialog", "Цена, руб.:"))
         self.dateTimeEdit_2.setDisplayFormat(_translate("Dialog", "yyyy-MM-dd HH:mm"))
         self.label_6.setText(_translate("Dialog", "Срок годности:"))
         self.label_category.setText(_translate("Dialog", "Категория:"))
@@ -291,8 +318,7 @@ class Ui_Dialog(object):
         self.category_combobox.currentIndexChanged.connect(partial(self.update_goods_combobox))
         self.accept_button_pushButton.clicked.connect(partial(self.save_write_off))
         self.cancel_button_pushButton.clicked.connect(Dialog.close)
-        # self.load_doc_pushButton.clicked.connect(partial(self.load_write_off_act))
-
+        self.load_doc_pushButton.clicked.connect(partial(self.load_supply_act))
 
     def update_goods_combobox(self, index):
         _translate = QtCore.QCoreApplication.translate
@@ -308,74 +334,69 @@ class Ui_Dialog(object):
         self.cancel_button_pushButton.setEnabled(True)
         self.accept_button_pushButton.setEnabled(True)
 
-
     def save_write_off(self):  # функция для сохранения изменений в базе данных
         conn = sqlite3.connect('warehouse.db')
+        print("Товар", self.goods_combobox.currentText())
+        print("Склад", self.warehouse_combobox.currentText())
+        print("Количество", self.spinBox.text())
+        print("Цена", self.price_spinBox.text())
         print("Дата и время поставки", self.dateTimeEdit_2.text())
         print("Срок годности до", self.dateTimeEdit_3.text())
-        print("Склад", self.warehouse_combobox.currentText())
-        print("Товар", self.goods_combobox.currentText())
-        print("Количество", self.spinBox.text())
+        try:
+            with conn:
+                good_id = [i[0] for i in conn.execute(f"SELECT * FROM Goods WHERE name = '{self.goods_combobox.currentText()}'")][0]
+                stock_id = [i[0] for i in conn.execute(f"SELECT * FROM Stock WHERE name = '{self.warehouse_combobox.currentText()}'")][0]
+                count_in = int(self.spinBox.text())
+                count_current = int(self.spinBox.text())
+                supply_date = self.dateTimeEdit_2.text()
+                expiration_date = self.dateTimeEdit_3.text()
+                price = float(self.price_spinBox.text().replace(',', '.'))
+                print([i[0] for i in conn.execute(f"SELECT * FROM Supply")])
+                if len([i[0] for i in conn.execute(f"SELECT * FROM Supply")]) != 0:
+                    supply_id = [i[0] for i in conn.execute(f"SELECT * FROM Supply")][-1]
+                else:
+                    supply_id = 0
+                date_current = DT.datetime.now()
+                print(date_current)
+                year = str(date_current)[:4]
+                month = str(date_current)[5:7]
+                day = str(date_current)[8:10]
+                calendar_dict = {'01': 'января', '02': 'февраля', '03': 'марта', '04': 'апреля', '05': 'мая',
+                                 '06': 'июня', '07': 'июля', '08': 'августа', '09': 'сентября', '10': 'октября',
+                                 '11': 'ноября', '12': 'декабря'}
+                global document
+                document = f'act_{str(date_current)[:19].replace(":", "_").replace(" ", "_")}.docx'
+                conn.execute("INSERT OR IGNORE INTO Supply (good_id, price, stock_id, count_in, count_current, supply_date, expiration_date, document) values(?, ?, ?, ?, ?, ?, ?, ?)",
+                             (good_id, price, stock_id, count_in, count_current, supply_date, expiration_date, document))
+            conn.commit()
+            doc_in = docxtpl.DocxTemplate('supplydocs/template_supply.docx')
+            context = {"name": self.goods_combobox.currentText(),
+                       'stock': self.warehouse_combobox.currentText(),
+                       'expiration_date': self.dateTimeEdit_3.text(),
+                       'count': int(self.spinBox.text()),
+                       'price': price,
+                       'total_price': price * count_in,
+                       'year': year,
+                       'month': calendar_dict[month],
+                       'day': day,
+                       'act_number': (supply_id + 1),
+                       "position": "Директор",
+                       'director': "К.Каліноўскі"}
+            doc_in.render(context)
+            doc_in.save(f"supplydocs//{document}")
+            time.sleep(2)
+            # ddoc = "C://Users//voyag//PycharmProjects//Project_qt5//supplydocs//" + document
+            # os.startfile(ddoc)
+        except Exception as e:
+            print(e)
+        self.cancel_button_pushButton.setEnabled(False)
+        self.accept_button_pushButton.setEnabled(False)
+        self.load_doc_pushButton.setEnabled(True)
 
-        # try:
-        #     global document_list
-        #     document_list = []
-        #     for row in data:  # вставляем данные из списка в базу данных
-        #         category_id = [i[0] for i in conn.execute(f"SELECT * FROM Category WHERE name = '{row[1]}'")][0]
-        #         stock_id = [i[0] for i in conn.execute(f"SELECT * FROM Stock WHERE name = '{row[0]}'")][0]
-        #         good_id = [i[0] for i in conn.execute(f"SELECT * FROM Goods WHERE name = '{row[2]}'")][0]
-        #         good_count = [i[8] for i in conn.execute(f"SELECT * FROM Goods WHERE name = '{row[2]}'")][0]
-        #         count = int(row[3])
-        #         reason = row[4]
-        #         price = [i[5] for i in conn.execute(f"SELECT * FROM Goods WHERE name = '{row[2]}'")][0]
-        #         write_off_id = [i[0] for i in conn.execute(f"SELECT * FROM WriteOff")][-1]
-        #         date_off = DT.datetime.now()
-        #         print(date_off)
-        #         year = str(date_off)[:4]
-        #         month = str(date_off)[5:7]
-        #         day = str(date_off)[8:10]
-        #         calendar_dict = {'01': 'января', '02': 'февраля', '03': 'марта', '04': 'апреля', '05': 'мая',
-        #                          '06': 'июня', '07': 'июля', '08': 'августа', '09': 'сентября', '10': 'октября',
-        #                          '11': 'ноября', '12': 'декабря'}
-        #         document = f'act_{str(date_off)[:19].replace(":", "_").replace(" ", "_")}.docx'
-        #         document_list.append(document)
-        #         fin_count = good_count - count
-        #         print(good_count, count, fin_count)
-        #         with conn:
-        #             conn.execute(
-        #                 "INSERT OR IGNORE INTO WriteOff (category_id, stock_id, good_id, count, reason, document, date_off) values(?, ?, ?, ?, ?, ?, ?)",
-        #                 (category_id, stock_id, good_id, count, reason, document, date_off))
-        #             conn.execute(f"UPDATE Goods SET count = ? WHERE id = ?", (fin_count, good_id))
-        #         conn.commit()
-        #
-        #         doc_in = docxtpl.DocxTemplate('wroffdocs/template_write_off.docx')
-        #
-        #         # Создаем объект таблицы с тремя строками и двумя столбцами
-        #         # table = docxtpl.Table([["A1", "B1"], ["A2", "B2"], ["A3", "B3"]], style="Table Grid")
-        #
-        #         context = {"name": row[2],
-        #                    'stock': row[0],
-        #                    'reason': row[4],
-        #                    'count': int(row[3]),
-        #                    'price': price,
-        #                    'total_price': price * count,
-        #                    'year': year,
-        #                    'month': calendar_dict[month],
-        #                    'day': day,
-        #                    'act_number': (write_off_id + 1),
-        #                    "position": "Директор",
-        #                    'director': "К.Каліноўскі"}
-        #         doc_in.render(context)
-        #         doc_in.save(f"wroffdocs//{document}")
-        #         time.sleep(2)
-        #         # ddoc = "C://Users//voyag//PycharmProjects//Project_qt5//wroffdocs//" + document
-        #         # os.startfile(ddoc)
-        # except Exception as e:
-        #     print(e)
-        # self.cancel_button_pushButton.setEnabled(False)
-        # self.accept_button_pushButton.setEnabled(False)
-        # self.load_doc_pushButton.setEnabled(True)
 
+    def load_supply_act(self):
+        ddoc = "C://Users//voyag//PycharmProjects//Project_qt5//supplydocs//" + document
+        os.startfile(ddoc)
 
 
 if __name__ == "__main__":
