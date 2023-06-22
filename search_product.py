@@ -63,6 +63,11 @@ class Ui_Dialog(object):
                                  "")
         self.label2.setObjectName("label")
 
+
+        self.label3 = QtWidgets.QLabel(Dialog)
+
+        self.label3.setObjectName("label")
+
         self.pushButton_2 = QtWidgets.QPushButton(Dialog)
         self.pushButton_2.setGeometry(QtCore.QRect(0, 370, 111, 41))
         self.pushButton_2.setStyleSheet("border-radius: 20px;\n"
@@ -111,6 +116,7 @@ class Ui_Dialog(object):
         self.label.setText(_translate("Dialog", "Выберите товар"))
         self.label1.setText(_translate("Dialog", ""))
         self.label2.setText(_translate("Dialog", ""))
+        self.label3.setText(_translate("Dialog", ""))
         self.textEdit.setHtml(_translate("Dialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -137,16 +143,18 @@ class Ui_Dialog(object):
             list_name_good = [i[0] for i in conn.execute('SELECT name FROM Goods')]
             print(list_name_good)
             for i in list_name_good:
-                result = fuzz.ratio(i, name_good)
+                result = fuzz.partial_ratio(i, name_good)
                 dict_res[i] = result
             names_combobox_goods = []
             x = 0
             for k, v in dict_res.items():
-                if int(v) >= x and int(v)!=0:
+                print(v)
+                if int(v) >= 70 and int(v)!=0:
                     x = v
                     names_combobox_goods.append(k)
                 else:
                     continue
+            print(x)
             print(names_combobox_goods)
             if len(names_combobox_goods) != 0:
                 self.comboBox1.setGeometry(QtCore.QRect(280, 250, 191, 22))
@@ -163,10 +171,20 @@ class Ui_Dialog(object):
                                                 "background: #8ccfff;")
                 self.pushButton_6.setText('Применить')
                 self.pushButton_6.setObjectName("pushButton_6")
+                self.pushButton_6.setEnabled(True)
                 self.pushButton_4.setGeometry(QtCore.QRect(200, 300, 111, 41))
+                self.label3.setText('Успешно найден!')
+                self.label3.setGeometry(QtCore.QRect(80, 200, 171, 41))
+                self.label3.setStyleSheet("color: #3fcf0a;\n"
+                                          "font: 75 12pt \"MS Shell Dlg 2\";\n"
+                                          "")
+                QTimer.singleShot(2500, lambda: self.label3.setText(''))
 
             else:
-                pass
+                self.comboBox1.addItem('Товар не найден!')
+                self.pushButton_6.setEnabled(False)
+                self.label1.setText('Товар не найдет!')
+                QTimer.singleShot(2500, lambda: self.label1.setText(''))
 
         index = self.comboBox.findText(name)
         try:
@@ -185,8 +203,6 @@ class Ui_Dialog(object):
                     QTimer.singleShot(1500, lambda: self.label2.setText(''))
         except:
             print('Ошибка: товара нет в БД')
-            self.label1.setText('Товар не найдет!')
-            QTimer.singleShot(2500, lambda: self.label1.setText(''))
 
 
     def search_goods_info(self):
