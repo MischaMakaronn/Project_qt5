@@ -269,7 +269,6 @@ class Ui_Dialog(object):
                                                "color: #42abc3;\n"
                                                "background:#cddff3")
         self.load_doc_pushButton.setObjectName("pushButton_3")
-
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
@@ -340,16 +339,16 @@ class Ui_Dialog(object):
         print("Склад", self.warehouse_combobox.currentText())
         print("Количество", self.spinBox.text())
         print("Цена", self.price_spinBox.text())
-        print("Дата и время поставки", self.dateTimeEdit_2.text())
-        print("Срок годности до", self.dateTimeEdit_3.text())
+        print("Дата и время поставки", self.dateTimeEdit_3.text())
+        print("Срок годности до", self.dateTimeEdit_2.text())
         try:
             with conn:
                 good_id = [i[0] for i in conn.execute(f"SELECT * FROM Goods WHERE name = '{self.goods_combobox.currentText()}'")][0]
                 stock_id = [i[0] for i in conn.execute(f"SELECT * FROM Stock WHERE name = '{self.warehouse_combobox.currentText()}'")][0]
                 count_in = int(self.spinBox.text())
                 count_current = int(self.spinBox.text())
-                supply_date = self.dateTimeEdit_2.text()
-                expiration_date = self.dateTimeEdit_3.text()
+                supply_date = self.dateTimeEdit_3.text()
+                expiration_date = self.dateTimeEdit_2.text()
                 price = float(self.price_spinBox.text().replace(',', '.'))
                 print([i[0] for i in conn.execute(f"SELECT * FROM Supply")])
                 if len([i[0] for i in conn.execute(f"SELECT * FROM Supply")]) != 0:
@@ -385,8 +384,6 @@ class Ui_Dialog(object):
             doc_in.render(context)
             doc_in.save(f"supplydocs//{document}")
             time.sleep(2)
-            # ddoc = "C://Users//voyag//PycharmProjects//Project_qt5//supplydocs//" + document
-            # os.startfile(ddoc)
         except Exception as e:
             print(e)
         self.cancel_button_pushButton.setEnabled(False)

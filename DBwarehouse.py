@@ -109,6 +109,7 @@ con.execute("""
         CREATE TABLE IF NOT EXISTS MovementOfGoods (
         id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
         supply_id INTEGER,
+        movement_id INTEGER,
         stock_in_id INTEGER,
         stock_out_id INTEGER,
         count_in INTEGER,
@@ -116,7 +117,9 @@ con.execute("""
         movement_date DATETIME,
         movement_status TEXT,
         document TEXT,
+        goods_name TEXT,
         FOREIGN KEY (supply_id) REFERENCES Supply (id),
+        FOREIGN KEY (movement_id) REFERENCES MovementOfGoods (id),
         FOREIGN KEY (stock_in_id) REFERENCES Stock (id),
         FOREIGN KEY (stock_out_id) REFERENCES Stock (id)
         )

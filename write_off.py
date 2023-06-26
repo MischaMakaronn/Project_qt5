@@ -457,12 +457,7 @@ class Ui_Dialog(object):
                         (category_id, stock_id, good_id, count, reason, document, date_off))
                     conn.execute(f"UPDATE Goods SET count = ? WHERE id = ?", (fin_count, good_id))
                 conn.commit()
-
                 doc_in = docxtpl.DocxTemplate('wroffdocs/template_write_off.docx')
-
-                # Создаем объект таблицы с тремя строками и двумя столбцами
-                # table = docxtpl.Table([["A1", "B1"], ["A2", "B2"], ["A3", "B3"]], style="Table Grid")
-
                 context = {"name": row[2],
                            'stock': row[0],
                            'reason': row[4],
@@ -478,8 +473,6 @@ class Ui_Dialog(object):
                 doc_in.render(context)
                 doc_in.save(f"wroffdocs//{document}")
                 time.sleep(2)
-                # ddoc = "C://Users//voyag//PycharmProjects//Project_qt5//wroffdocs//" + document
-                # os.startfile(ddoc)
         except Exception as e:
             print(e)
         self.cancel_button_pushButton.setEnabled(False)
@@ -492,14 +485,6 @@ class Ui_Dialog(object):
             doc_to_open = "C://Users//voyag//PycharmProjects//Project_qt5//wroffdocs//" + doc
             os.startfile(doc_to_open)
 
-    # def resizeEvent(self, event):
-    #     # Переопределяем метод обработки события изменения размера виджета
-    #     # Вызываем метод базового класса
-    #     super().resizeEvent(event)
-    #     # Подстраиваем ширину колонок под содержимое
-    #     self.tableWidget.resizeColumnsToContents()
-    #     # Отключаем горизонтальную полосу прокрутки
-    #     self.tableWidget.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
 
 
 if __name__ == "__main__":
