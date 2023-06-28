@@ -83,9 +83,13 @@ with con:
         reason TEXT,
         document TEXT,
         date_off DATETIME,
+        supply_id INTEGER,
+        movement_id INTEGER,
         FOREIGN KEY (category_id) REFERENCES Category (id),
         FOREIGN KEY (stock_id) REFERENCES Stock (id),
-        FOREIGN KEY (good_id) REFERENCES Goods (id)
+        FOREIGN KEY (good_id) REFERENCES Goods (id),
+        FOREIGN KEY (supply_id) REFERENCES Supply (id),
+        FOREIGN KEY (movement_id) REFERENCES MovementOfGoods (id)
         )
     """)
 

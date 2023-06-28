@@ -15,7 +15,12 @@ import os
 import docxtpl
 
 
-# from docxtpl import Table
+class ComboBox(QtWidgets.QComboBox):
+    popupAboutToBeShown = QtCore.pyqtSignal()
+
+    def showPopup(self):
+        self.popupAboutToBeShown.emit()
+        super(ComboBox, self).showPopup()
 
 
 class Ui_Dialog(object):
@@ -26,12 +31,12 @@ class Ui_Dialog(object):
 
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(800, 630)
+        Dialog.resize(1100, 630)
         Dialog.setStyleSheet("background-image: url(\"OJ91CN0.jpg\");")
         conn = sqlite3.connect('warehouse.db')
         self.label = QtWidgets.QLabel(Dialog)
         self.label.setGeometry(QtCore.QRect(230, 10, 191, 31))
-        self.label.setStyleSheet("color: #fff; font: bold 17pt MS Shell Dlg 2; background: transparent")
+        self.label.setStyleSheet("color: #46728a; font: bold 17pt MS Shell Dlg 2; background: transparent")
         self.label.setObjectName("label")
         self.label_category = QtWidgets.QLabel(Dialog)
         self.label_category.setGeometry(QtCore.QRect(20, 350, 120, 31))
@@ -40,7 +45,7 @@ class Ui_Dialog(object):
         font.setBold(True)
         font.setWeight(75)
         self.label_category.setFont(font)
-        self.label_category.setStyleSheet("color: #fff; font: bold 12pt MS Shell Dlg 2; background: transparent")
+        self.label_category.setStyleSheet("color: #46728a; font: bold 12pt MS Shell Dlg 2; background: transparent")
         self.label_category.setObjectName("label_category")
         self.label_warehouse = QtWidgets.QLabel(Dialog)
         self.label_warehouse.setGeometry(QtCore.QRect(190, 350, 120, 31))
@@ -49,7 +54,7 @@ class Ui_Dialog(object):
         font.setBold(True)
         font.setWeight(75)
         self.label_warehouse.setFont(font)
-        self.label_warehouse.setStyleSheet("color: #fff; font: bold 12pt MS Shell Dlg 2; background: transparent")
+        self.label_warehouse.setStyleSheet("color: #46728a; font: bold 12pt MS Shell Dlg 2; background: transparent")
         self.label_warehouse.setObjectName("label_warehouse")
         self.label_goods = QtWidgets.QLabel(Dialog)
         self.label_goods.setGeometry(QtCore.QRect(20, 420, 120, 31))
@@ -58,7 +63,7 @@ class Ui_Dialog(object):
         font.setBold(True)
         font.setWeight(75)
         self.label_goods.setFont(font)
-        self.label_goods.setStyleSheet("color: #fff; font: bold 12pt MS Shell Dlg 2; background: transparent")
+        self.label_goods.setStyleSheet("color: #46728a; font: bold 12pt MS Shell Dlg 2; background: transparent")
         self.label_goods.setObjectName("label_goods")
         self.label_goods_count = QtWidgets.QLabel(Dialog)
         self.label_goods_count.setGeometry(QtCore.QRect(190, 420, 120, 31))
@@ -67,7 +72,7 @@ class Ui_Dialog(object):
         font.setBold(True)
         font.setWeight(75)
         self.label_goods_count.setFont(font)
-        self.label_goods_count.setStyleSheet("color: #fff; font: bold 12pt MS Shell Dlg 2; background: transparent")
+        self.label_goods_count.setStyleSheet("color: #46728a; font: bold 12pt MS Shell Dlg 2; background: transparent")
         self.label_goods_count.setObjectName("label_goods_count")
         self.label_reason = QtWidgets.QLabel(Dialog)
         self.label_reason.setGeometry(QtCore.QRect(20, 490, 200, 31))
@@ -76,8 +81,19 @@ class Ui_Dialog(object):
         font.setBold(True)
         font.setWeight(75)
         self.label_reason.setFont(font)
-        self.label_reason.setStyleSheet("color: #fff; font: bold 12pt MS Shell Dlg 2; background: transparent")
+        self.label_reason.setStyleSheet("color: #46728a; font: bold 12pt MS Shell Dlg 2; background: transparent")
         self.label_reason.setObjectName("label_goods_count")
+
+        self.label_supply_number = QtWidgets.QLabel(Dialog)
+        self.label_supply_number.setGeometry(QtCore.QRect(400, 350, 420, 31))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_supply_number.setFont(font)
+        self.label_supply_number.setStyleSheet(
+            "color: #46728a; font: bold 12pt MS Shell Dlg 2; background: transparent")
+        self.label_supply_number.setObjectName("label_goods_count")
 
         self.reason_line_edit = QtWidgets.QLineEdit(Dialog)
         self.reason_line_edit.setGeometry(QtCore.QRect(20, 520, 200, 31))
@@ -94,25 +110,25 @@ class Ui_Dialog(object):
 
         self.cancel_button_pushButton = QtWidgets.QPushButton(Dialog)
         self.cancel_button_pushButton.setEnabled(False)
-        self.cancel_button_pushButton.setGeometry(QtCore.QRect(130, 580, 101, 31))
-        self.cancel_button_pushButton.setStyleSheet("font: bold 9pt \"OCR A Extended\";\n"
+        self.cancel_button_pushButton.setGeometry(QtCore.QRect(140, 580, 110, 37))
+        self.cancel_button_pushButton.setStyleSheet("font: bold 10pt \"OCR A Extended\";\n"
                                                     "border-radius: 12px;\n"
-                                                    "border: 2px solid #42abc3;\n"
+                                                    "border: 4px solid #42abc3;\n"
                                                     "color: #42abc3;\n"
                                                     "background:#cddff3")
         self.cancel_button_pushButton.setObjectName("pushButton_5")
         self.accept_button_pushButton = QtWidgets.QPushButton(Dialog)
         self.accept_button_pushButton.setEnabled(False)
-        self.accept_button_pushButton.setGeometry(QtCore.QRect(20, 580, 101, 31))
-        self.accept_button_pushButton.setStyleSheet("font: bold 9pt \"OCR A Extended\";\n"
+        self.accept_button_pushButton.setGeometry(QtCore.QRect(20, 580, 110, 37))
+        self.accept_button_pushButton.setStyleSheet("font: bold 10pt \"OCR A Extended\";\n"
                                                     "border-radius: 12px;\n"
-                                                    "border: 2px solid #42abc3;\n"
+                                                    "border: 4px solid #42abc3;\n"
                                                     "color: #42abc3;\n"
                                                     "background:#cddff3")
         self.accept_button_pushButton.setObjectName("pushButton_3")
         self.load_doc_pushButton = QtWidgets.QPushButton(Dialog)
         self.load_doc_pushButton.setEnabled(False)
-        self.load_doc_pushButton.setGeometry(QtCore.QRect(650, 10, 120, 60))
+        self.load_doc_pushButton.setGeometry(QtCore.QRect(950, 10, 120, 60))
         self.load_doc_pushButton.setStyleSheet("font: bold 11pt \"OCR A Extended\";\n"
                                                "border-radius: 12px;\n"
                                                "border: 2px solid #42abc3;\n"
@@ -127,8 +143,12 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.category_combobox.setFont(font)
-        self.category_combobox.resize(150, 30)
-        self.category_combobox.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.category_combobox.resize(150, 37)
+        self.category_combobox.setStyleSheet("font: bold 11pt \"Arial Black\";\n"
+                                             "border-radius: 12px;\n"
+                                             "border: 5px solid #42abc3;\n"
+                                             "color: #42abc3;\n"
+                                             "background:#cddff3")
         self.category_combobox.setObjectName("comboBox")
         with conn:
             cursor = conn.cursor()
@@ -144,8 +164,12 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.warehouse_combobox.setFont(font)
-        self.warehouse_combobox.resize(150, 30)
-        self.warehouse_combobox.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.warehouse_combobox.resize(150, 37)
+        self.warehouse_combobox.setStyleSheet("font: bold 11pt \"Arial Black\";\n"
+                                              "border-radius: 12px;\n"
+                                              "border: 5px solid #42abc3;\n"
+                                              "color: #42abc3;\n"
+                                              "background:#cddff3")
         self.warehouse_combobox.setObjectName("comboBox")
         with conn:
             cursor = conn.cursor()
@@ -161,8 +185,12 @@ class Ui_Dialog(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.goods_combobox.setFont(font)
-        self.goods_combobox.resize(150, 30)
-        self.goods_combobox.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.goods_combobox.resize(150, 37)
+        self.goods_combobox.setStyleSheet("font: bold 11pt \"Arial Black\";\n"
+                                          "border-radius: 12px;\n"
+                                          "border: 5px solid #42abc3;\n"
+                                          "color: #42abc3;\n"
+                                          "background:#cddff3")
         self.goods_combobox.setObjectName("comboBox")
         with conn:
             cursor = conn.cursor()
@@ -173,15 +201,33 @@ class Ui_Dialog(object):
         for i in range(0, len(list(info_positions))):
             self.goods_combobox.addItem("")
 
+        self.supply_number_combobox = ComboBox(Dialog)
+        self.supply_number_combobox.setGeometry(QtCore.QRect(400, 380, 420, 37))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.supply_number_combobox.setFont(font)
+        self.supply_number_combobox.setStyleSheet("font: bold 11pt \"Arial Black\";\n"
+                                                  "border-radius: 12px;\n"
+                                                  "border: 5px solid #42abc3;\n"
+                                                  "color: #42abc3;\n"
+                                                  "background:#cddff3")
+        self.supply_number_combobox.setObjectName("supply_number_combobox")
+        with conn:
+            cursor = conn.cursor()
+            cursor.execute(f"SELECT * FROM Supply")
+            info_supply = cursor.fetchall()
+        for i in range(0, len(list(info_supply))):
+            self.supply_number_combobox.addItem("")
+
         self.tableWidget = QtWidgets.QTableWidget(Dialog)
         self.tableWidget.setGeometry(QtCore.QRect(10, 80, 521, 261))
         self.tableWidget.setStyleSheet("background: ")
         self.tableWidget.setTabKeyNavigation(True)
         self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(5)
+        self.tableWidget.setColumnCount(6)
         self.tableWidget.setRowCount(1)
         # self.tableWidget.resizeColumnsToContents()
-        self.tableWidget.setFixedSize(635, 260)
+        self.tableWidget.setFixedSize(920, 260)
 
         item = QtWidgets.QTableWidgetItem()
         item.setTextAlignment(QtCore.Qt.AlignCenter)
@@ -227,6 +273,12 @@ class Ui_Dialog(object):
         font.setItalic(True)
         item.setFont(font)
         self.tableWidget.setHorizontalHeaderItem(4, item)
+        item = QtWidgets.QTableWidgetItem()
+        item.setTextAlignment(QtCore.Qt.AlignCenter)
+        font = QtGui.QFont()
+        font.setItalic(True)
+        item.setFont(font)
+        self.tableWidget.setHorizontalHeaderItem(5, item)
 
         self.tableWidget.horizontalHeader().setVisible(True)
         self.tableWidget.horizontalHeader().setCascadingSectionResizes(True)
@@ -236,7 +288,7 @@ class Ui_Dialog(object):
         self.tableWidget.verticalHeader().setCascadingSectionResizes(False)
 
         self.add_button_pushButton = QtWidgets.QPushButton(Dialog)
-        self.add_button_pushButton.setGeometry(QtCore.QRect(650, 80, 61, 51))
+        self.add_button_pushButton.setGeometry(QtCore.QRect(950, 80, 61, 51))
         self.add_button_pushButton.setStyleSheet("border: 2px solid #ddd;\n"
                                                  "font: 75 26pt \"MS Shell Dlg 2\";\n"
                                                  "\n"
@@ -247,7 +299,7 @@ class Ui_Dialog(object):
         self.add_button_pushButton.setObjectName("pushButton_7")
 
         self.delete_button_pushButton = QtWidgets.QPushButton(Dialog)
-        self.delete_button_pushButton.setGeometry(QtCore.QRect(710, 80, 61, 51))
+        self.delete_button_pushButton.setGeometry(QtCore.QRect(1010, 80, 61, 51))
         self.delete_button_pushButton.setStyleSheet("border: 2px solid #ddd;\n"
                                                     "font: 75 26pt \"MS Shell Dlg 2\";\n"
                                                     "\n"
@@ -258,11 +310,14 @@ class Ui_Dialog(object):
         self.delete_button_pushButton.setObjectName("pushButton_8")
 
         self.goods_count_spinbox = QtWidgets.QSpinBox(Dialog)
-        self.goods_count_spinbox.setGeometry(QtCore.QRect(190, 450, 150, 31))
+        self.goods_count_spinbox.setGeometry(QtCore.QRect(190, 450, 150, 37))
         self.goods_count_spinbox.setMaximum(1000000)
         self.goods_count_spinbox.setValue(0)
-        self.goods_count_spinbox.setStyleSheet("background-color: rgb(255, 255, 255); font: 10pt")
-
+        self.goods_count_spinbox.setStyleSheet("font: bold 11pt \"Arial Black\";\n"
+                                               "border-radius: 12px;\n"
+                                               "border: 5px solid #42abc3;\n"
+                                               "color: #42abc3;\n"
+                                               "background:#cddff3")
         self.goods_count_spinbox.setObjectName("good_count_spinbox")
 
         self.retranslateUi(Dialog)
@@ -279,6 +334,7 @@ class Ui_Dialog(object):
         self.label_goods.setText(_translate("Dialog", "Товар:"))
         self.label_goods_count.setText(_translate("Dialog", "Количество:"))
         self.label_reason.setText(_translate("Dialog", "Причина списания:"))
+        self.label_supply_number.setText(_translate("Dialog", "Номер и дата поставки / перемещения:"))
 
         self.cancel_button_pushButton.setText(_translate("Dialog", "Отменить"))
         self.accept_button_pushButton.setText(_translate("Dialog", "Применить"))
@@ -295,6 +351,8 @@ class Ui_Dialog(object):
         item.setText(_translate("Dialog", "Количество"))
         item = self.tableWidget.horizontalHeaderItem(4)
         item.setText(_translate("Dialog", "Причина"))
+        item = self.tableWidget.horizontalHeaderItem(5)
+        item.setText(_translate("Dialog", "Поставка/Перемещение товара"))
 
         self.add_button_pushButton.setText(_translate("Dialog", "+"))
         self.delete_button_pushButton.setText(_translate("Dialog", "-"))
@@ -335,8 +393,13 @@ class Ui_Dialog(object):
         self.category_combobox.currentIndexChanged.connect(partial(self.update_goods_combobox))
         self.goods_combobox.currentIndexChanged.connect(partial(self.update_good_from_combobox))
         self.warehouse_combobox.currentIndexChanged.connect(partial(self.update_warehouse_from_combobox))
+
+        self.supply_number_combobox.popupAboutToBeShown.connect(partial(self.update_supply_combobox))
+        self.supply_number_combobox.currentIndexChanged.connect(partial(self.update_table_supply_number_from_combobox))
+
         self.goods_count_spinbox.valueChanged.connect(partial(self.update_count_from_spinbox))
-        self.tableWidget.cellDoubleClicked.connect(partial(self.cell_double_clicked))  # по даблклику на ячейку активируем "Отменить" и "Принять"
+        self.tableWidget.cellDoubleClicked.connect(
+            partial(self.cell_double_clicked))  # по даблклику на ячейку активируем "Отменить" и "Принять"
         self.reason_line_edit.textChanged.connect(partial(self.update_reason_from_lineedit))
         self.accept_button_pushButton.clicked.connect(partial(self.save_write_off))
         self.cancel_button_pushButton.clicked.connect(Dialog.close)
@@ -411,6 +474,58 @@ class Ui_Dialog(object):
         self.cancel_button_pushButton.setEnabled(True)
         self.accept_button_pushButton.setEnabled(True)
 
+    def update_supply_combobox(self):
+        _translate = QtCore.QCoreApplication.translate
+        conn = sqlite3.connect('warehouse.db')
+        self.supply_number_combobox.clear()
+        print(self.goods_combobox.currentText())
+        print("text")
+        good_id = [i[0] for i in
+                   conn.execute(f"SELECT * FROM Goods WHERE name = '{self.goods_combobox.currentText()}'")]
+        stock_id = \
+            [i[0] for i in conn.execute(f"SELECT * FROM Stock WHERE name = '{self.warehouse_combobox.currentText()}'")][
+                0]
+        print("айди товара", good_id, "айди склада", stock_id)
+        with conn:
+            # список первичных поставок, где на первом складе текущее количество товара не равно 0
+            list_of_supplies = [f"{i[0]}. {i[6]} поставка" for i in
+                                conn.execute(
+                                    f"SELECT * FROM Supply WHERE good_id = '{good_id[0]}' AND count_current != 0")]
+            # список перемещений товара между складами, где на вторичном складе текущее количество товара не равно 0
+            list_of_movements = [f"{i[0]}. {i[7]} перемещение" for i in
+                                 conn.execute(
+                                     f"SELECT * FROM MovementOfGoods WHERE goods_name = '{self.goods_combobox.currentText()}' "
+                                     f"AND count_current > 0 "
+                                     f"AND stock_out_id = '{stock_id}'")]
+            # list_of_movements = [f"{i[0]}. {i[6]}" for i in
+            #                      conn.execute(
+            #                          f"SELECT * FROM MovementOfGoods")]
+
+            print("supplies", list_of_supplies)
+            print("movements", self.goods_combobox.currentText(), self.warehouse_combobox.currentText(),
+                  list_of_movements)
+        # for num in range(0, len(list(list_of_supplies))):  # заполняем комбо виджет из списка поставок
+        #     self.supply_number_combobox.setItemText(num, _translate("Dialog", f"{list_of_supplies[num]}"))
+        if len(list_of_supplies + list_of_movements) != 0:
+            self.supply_number_combobox.addItems(list_of_supplies + list_of_movements)
+        else:
+            self.supply_number_combobox.addItems(["поставок нет"])
+        # raw = self.tableWidget.currentRow()
+        # self.tableWidget.selectRow(raw)
+        print("0 номер поставки в комбобоксе:", self.supply_number_combobox.currentText())
+        self.tableWidget.setItem(self.tableWidget.currentRow(), 5,
+                                 QTableWidgetItem(self.supply_number_combobox.currentText()))
+        # self.tableWidget.setItem(self.tableWidget.currentRow(), 2, QTableWidgetItem(self.goods_combobox.currentText()))
+        self.cancel_button_pushButton.setEnabled(True)
+        self.accept_button_pushButton.setEnabled(True)
+
+    def update_table_supply_number_from_combobox(self):
+        print("3 номер поставки в комбобоксе:", self.supply_number_combobox.currentText())
+        self.tableWidget.setItem(self.tableWidget.currentRow(), 5,
+                                 QTableWidgetItem(self.supply_number_combobox.currentText()))
+        self.cancel_button_pushButton.setEnabled(True)
+        self.accept_button_pushButton.setEnabled(True)
+
     def save_write_off(self):  # функция для сохранения изменений в базе данных
         try:
             rows = self.tableWidget.rowCount()  # получаем количество строк и столбцов таблицы
@@ -425,7 +540,7 @@ class Ui_Dialog(object):
                 data.append(row_data)  # добавляем список для текущей строки в общий список
             print(data)
         except Exception as e:
-            print(e)
+            print("ошибка тут 1", e)
         conn = sqlite3.connect('warehouse.db')
         try:
             global document_list
@@ -437,8 +552,18 @@ class Ui_Dialog(object):
                 good_count = [i[8] for i in conn.execute(f"SELECT * FROM Goods WHERE name = '{row[2]}'")][0]
                 count = int(row[3])
                 reason = row[4]
+                print(reason)
+                print(row[5])
+                supply_or_movement_id = int(row[5].split(".")[0])
+                print(supply_or_movement_id)
+                supply_or_movement = row[5].split(" ")[3]
+                print("supply_or_movement_id", supply_or_movement_id)
+                print(row[5].split(" "), supply_or_movement)
                 price = [i[5] for i in conn.execute(f"SELECT * FROM Goods WHERE name = '{row[2]}'")][0]
-                write_off_id = [i[0] for i in conn.execute(f"SELECT * FROM WriteOff")][-1]
+                if len([i[0] for i in conn.execute(f"SELECT * FROM WriteOff")]) == 0:
+                    write_off_id = 0
+                else:
+                    write_off_id = [i[0] for i in conn.execute(f"SELECT * FROM WriteOff")][-1]
                 date_off = DT.datetime.now()
                 print(date_off)
                 year = str(date_off)[:4]
@@ -452,10 +577,20 @@ class Ui_Dialog(object):
                 fin_count = good_count - count
                 print(good_count, count, fin_count)
                 with conn:
-                    conn.execute(
-                        "INSERT OR IGNORE INTO WriteOff (category_id, stock_id, good_id, count, reason, document, date_off) values(?, ?, ?, ?, ?, ?, ?)",
-                        (category_id, stock_id, good_id, count, reason, document, date_off))
-                    conn.execute(f"UPDATE Goods SET count = ? WHERE id = ?", (fin_count, good_id))
+                    if supply_or_movement == "поставка":
+                        conn.execute(
+                            "INSERT OR IGNORE INTO WriteOff (category_id, stock_id, good_id, count, reason, document, "
+                            "date_off, supply_id) values(?, ?, ?, ?, ?, ?, ?, ?)",
+                            (category_id, stock_id, good_id, count, reason, document, date_off, supply_or_movement_id))
+                        conn.execute(f"UPDATE Supply SET count_current = ? WHERE id = ?",
+                                     (fin_count, supply_or_movement_id))
+                    if supply_or_movement == "перемещение":
+                        conn.execute(
+                            "INSERT OR IGNORE INTO WriteOff (category_id, stock_id, good_id, count, reason, document, "
+                            "date_off, movement_id) values(?, ?, ?, ?, ?, ?, ?, ?)",
+                            (category_id, stock_id, good_id, count, reason, document, date_off, supply_or_movement_id))
+                        conn.execute(f"UPDATE MovementOfGoods SET count_current = ? WHERE id = ?",
+                                     (fin_count, supply_or_movement_id))
                 conn.commit()
                 doc_in = docxtpl.DocxTemplate('wroffdocs/template_write_off.docx')
                 context = {"name": row[2],
@@ -474,7 +609,7 @@ class Ui_Dialog(object):
                 doc_in.save(f"wroffdocs//{document}")
                 time.sleep(2)
         except Exception as e:
-            print(e)
+            print("ошибка тут 2", e)
         self.cancel_button_pushButton.setEnabled(False)
         self.accept_button_pushButton.setEnabled(False)
         self.load_doc_pushButton.setEnabled(True)
@@ -484,7 +619,6 @@ class Ui_Dialog(object):
         for doc in document_list:
             doc_to_open = "C://Users//voyag//PycharmProjects//Project_qt5//wroffdocs//" + doc
             os.startfile(doc_to_open)
-
 
 
 if __name__ == "__main__":
